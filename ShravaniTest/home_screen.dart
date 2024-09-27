@@ -1,13 +1,156 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class HomeScreen extends StatefulWidget {
+import 'package:flutter/rendering.dart';
+import 'Login.dart';
+import 'send ref.dart';
+import 'rec ref.dart';
+import 'hospital_info.dart';
+import 'edit_info.dart';
+//Pages
+import './about.dart';
+import './profile.dart';
+void main() => runApp(new MyApp());
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: new MyHomePage(),
+    );
   }
 }
+class MyHomePage extends StatefulWidget {
+
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+          backgroundColor: Colors.green[600],
+          title:new Text('KUSHALKSHEM',textAlign: TextAlign.center,)
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 8,
+              childAspectRatio: 2.8
+          ),
+          children: [
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue),
+              child: FlatButton.icon(
+                icon: Icon(Icons.add,size: 40,),//icon image
+                label: Text('Referral Add',style: TextStyle(color: Colors.white, fontSize: 25)),//text to show in button
+                textColor: Colors.white,//button text and icon color.
+                color: Colors.green[200],//button background color
+                onPressed: ()  {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => hospital_info()));
+                },
+              ),
+        ),
+
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue),
+              child: FlatButton.icon(
+                icon: Icon(Icons.dynamic_form,size:40),//icon image
+                label: Text('Referral Edit',style: TextStyle(color: Colors.white, fontSize: 25)),//text to show in button
+                textColor: Colors.white,//button text and icon color.
+                color: Colors.green[200],//button background color
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => EditInfo()));
+                },
+            ),
+            ),
+
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue),
+              child: FlatButton.icon(
+                icon: Icon(Icons.send,size: 40,),//icon image
+                label: Text('Referral Sent',style: TextStyle(color: Colors.white, fontSize: 25)),//text to show in button
+                textColor: Colors.white,//button text and icon color.
+                color: Colors.green[200],//button background color
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => SenRef()));
+                },
+              ),
+            ),
+
+
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue),
+              child: FlatButton.icon(
+                icon: Icon(Icons.input_rounded,size:40),//icon image
+                label: Text('Referral Received',style: TextStyle(color: Colors.white, fontSize: 25)),//text to show in button
+                textColor: Colors.white,//button text and icon color.
+                color: Colors.green[200],//button background color
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => RecRef()));
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      drawer: new Drawer(
+        backgroundColor: Colors.green[200],
+        child: ListView(
+          children: <Widget>[
+            new UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color:Colors.green[400],),
+              accountName: new Text('Kamla Nehru Hospital'),
+              accountEmail: new Text('hospital@mail.com'),
+              currentAccountPicture: Image.asset('assets/K.png')
+            ),
+            new ListTile(
+              title: new Text('PROFILE'),
+              onTap:(){
+                Navigator.of(context).pop();
+                Navigator.push(context, new MaterialPageRoute(
+                    builder: (BuildContext context)=>new Profile())
+                );
+              },
+            ),
+            new Divider(
+              color: Colors.black,
+              height: 5.0,
+            ),
+            new ListTile(
+              title: new Text('LOG OUT'),
+              onTap:(){
+                Navigator.of(context).pop();
+                Navigator.push(context, new MaterialPageRoute(
+                    builder: (BuildContext context)=>new LoginDemo())
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
